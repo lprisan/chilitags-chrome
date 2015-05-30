@@ -20,7 +20,7 @@
             width: 1000px;
             text-align: left;
             z-index: 100;
-            display:block;
+            display:none;
             font-size:x-large;
             color: #ffffff;
             text-shadow: 0px -1px 0px #000000,
@@ -28,21 +28,50 @@
                         0px  1px 0px #000000,
                         -1px  0px 0px #000000;
         }
+        .deadcenter {
+          position: fixed;
+          top: 50%;
+          left: 55%;
+          /* bring your own prefixes */
+          transform: translate(-50%, -50%);
+        }
+
+        .topleft {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+        }
+
+        .action {
+            position: absolute;
+            top: 40px;
+            width: 80px;
+            text-align: center;
+            z-index: 100;
+            display:block;
+            font-size: small;
+            color: #000000;
+          transform: translate(0%, -50%);
+        }
+
     </style>
 </head>
 
 <body> 
-<video id="webcam" autoplay style="display:none;" width="640" height="480"></video>
-<canvas id="snapshot" width="640" height="480"></canvas>
+<video id="webcam" autoplay class="deadcenter" style="display:none;" width="640" height="480"></video>
+<canvas id="snapshot" class="deadcenter" width="640" height="480"></canvas>
 <div id="fps" class="info"></div>
-<iframe id="frame" src="" style="position: absolute; width: 800px; height: 600px; top:0px; left: 0px"></iframe>
-
+<div id="action" class="action"></div>
+<iframe id="frame" src="" class="deadcenter" style="position: absolute; width: 90%; height: 100%;"></iframe>
+<canvas id="progress" class="topleft" width="80" height="80"></canvas>
 
 </body>
 <script>
     var video = document.getElementById('webcam');
     var canvas = document.getElementById('snapshot');
+    var progress = document.getElementById('progress');
     var ctx = canvas.getContext('2d');
+    var ctx2 = progress.getContext('2d');
     var localMediaStream = null;
 
     var continuous = true;
@@ -50,9 +79,41 @@
     var width = canvas.width;
     var height = canvas.height;
 
+    var act = document.getElementById('action');
+    var actionText = document.createTextNode('');
+    act.appendChild(actionText);
+
+
     var fps = document.getElementById('fps');
     var fpsText = document.createTextNode('');
     fps.appendChild(fpsText);
+
+//To compare objects
+function isEquivalent(a, b) {
+    // Create arrays of property names
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+
+    // If number of properties is different,
+    // objects are not equivalent
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+
+        // If values of same property are not equal,
+        // objects are not equivalent
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+
+    // If we made it this far, objects
+    // are considered equivalent
+    return true;
+}
 
     //Checking camera
     var hasGetUserMedia = function() {
@@ -73,18 +134,93 @@
             var end = new Date();
             var str = 'tag: ';
             for(var tag in obj){
-            	if(tag=="0"){
-            		//alert("detected 0");
-            		$("#frame").attr("src", "http://localhost:3000/demo");	
-            	}
-            	if(tag=="341"){
-            		//alert("detected 0");
-            		$("#frame").attr("src", "http://localhost:3000/simpleactivity/KKKK");	
-            	}
-
                 str += tag + ", ";
             }
-            fpsText.nodeValue = "Chilitags processing = " + (end.getTime() - start.getTime()) + "ms  " + str;
+
+            var debugString =  "Chilitags processing = " + (end.getTime() - start.getTime()) + "ms  " + str;
+
+            ctx2.clearRect ( 0 , 0 , progress.width, progress.height );
+
+            //We iterate over the envelope configurations
+            for(var i=0; i<envelopes.length; i++){
+                var envel = envelopes[i];
+                //We see if we have something in preparation
+                var detectedPrep = false
+                for(var j=0; j<envel.preptags.length; j++){
+                    var prep = envel.preptags[j];
+                    if(Object.keys(obj).indexOf(prep)>-1){//We detected a preparation tag
+                        envel.inpreparation = Date.now();
+                        detectedPrep = true;
+                        console.log("starting preparation of "+envel.action);
+                    }
+
+                }
+                //If we detected no preparation, and neither in the last 3.5s, we just drop the preparation
+                if(envel.inpreparation && !detectedPrep && Date.now()-envel.inpreparation>3500){
+                    console.log("cancelling preparation of "+envel.action);
+                    envel.inpreparation = undefined;
+                    actionText.nodeValue = '';
+
+                } 
+                //If we detected a preparation, we display the circle and the title inside
+                if(detectedPrep && envel.inpreparation){
+                    actionText.nodeValue = envel.title;
+
+                    ctx2.fillStyle = "rgba(0, 0, 0, 0)";
+                    ctx2.strokeStyle = '#000000';
+                    ctx2.lineWidth = 2;
+                    ctx2.beginPath();
+                    ctx2.arc(40, 40, 37, 0, Math.PI*2, true);
+                    ctx2.closePath();
+                    ctx2.stroke();
+                }
+
+                //We see if we have something in execution
+                var detectedExec = false;
+                for(var j=0; j<envel.actags.length; j++){
+                    var exec = envel.actags[j];
+                    if(Object.keys(obj).indexOf(exec)>-1){//We detected a execution tag, was it in preparation?
+                        if(envel.inpreparation){// If it was, we mark the execution
+                            detectedExec = true;
+                            if(!envel.inexecution) envel.inexecution = Date.now();//inexecution will mark the first detection of execution of a prepared action
+                            console.log("detected execution of "+envel.action);
+                        }
+                    }
+                }
+                //If we detected execution for more than 2s, we actually execute the action
+                if(detectedExec && envel.inexecution && Date.now()-envel.inexecution>2000){
+                    console.log("executing "+envel.action);
+                    $("#frame").attr("src", envel.action);
+                    envel.inexecution = undefined;
+                    envel.inpreparation = undefined; 
+                    debugString += "\nexecuting "+envel.action;
+                }else if(detectedExec && envel.inexecution && Date.now()-envel.inexecution<2000){
+                //TODO: If we detected execution, but for less than 2s., we just display something
+                    ctx2.fillStyle = "rgba(255, 0, 0, 0.2)";
+                    ctx2.beginPath();
+                    ctx2.moveTo(40, 40);
+                    ctx2.arc(40, 40, 35, 0, Math.PI*2*(Date.now()-envel.inexecution)/2000, true);
+                    ctx2.closePath();
+                    ctx2.fill();
+                    console.log("waiting for more: "+(2000-(Date.now()-envel.inexecution)));
+                    actionText.nodeValue = envel.title;
+
+                }
+                //If we did not detect execution, and more than 2.5s have passed, we drop the execution
+                else if(!detectedExec && envel.inexecution && Date.now()-envel.inexecution>2500){
+                    console.log("cancelling execution of "+envel.action);
+                    envel.inexecution = undefined;
+                    envel.inpreparation = undefined;
+                    actionText.nodeValue = '';
+
+                }
+
+            }
+
+            fpsText.nodeValue = debugString;
+
+
+
         }
         if(continuous) requestAnimationFrame(snapshot);
     }
@@ -107,6 +243,27 @@
             }, onFailSoHard);
 
     video.addEventListener('play', function() {setTimeout('snapshot()', 2500);}, false);
+
+
+    var envelopes = [
+        {
+            title: "KKKK",
+            preptags: ["186","187"],
+            actags: ["184","185"], 
+            action: "http://localhost:3000/simpleactivity/KKKK",
+            inpreparation: undefined,
+            inexecution: undefined
+        },
+        {
+            title: "Polygone Football Demo",
+            preptags: ["176"],
+            actags: ["114"], 
+            action: "http://localhost:3000/demo",
+            inpreparation: undefined,
+            inexecution: undefined
+        }
+    ];
+
 
 </script>
 </html>
