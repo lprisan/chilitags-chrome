@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="test-envelope2.svg">
+   sodipodi:docname="test-envelope4.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,15 +26,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="627.051"
+     inkscape:cx="857.03439"
      inkscape:cy="306.04031"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1207"
      inkscape:window-height="1011"
-     inkscape:window-x="496"
-     inkscape:window-y="84"
+     inkscape:window-x="401"
+     inkscape:window-y="25"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -98,7 +98,7 @@
          id="tspan3821"
          x="189.20448"
          y="416.30682"
-         style="font-size:22px">Sist.Coord</tspan><tspan
+         style="font-size:22px;font-weight:bold;-inkscape-font-specification:'Times New Roman, Bold';fill:#d40000">Pause!</tspan><tspan
          sodipodi:role="line"
          x="189.20448"
          y="443.80682"
@@ -128,14 +128,14 @@
        y="389.33862"
        x="51.471954"
        id="image4286"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/196.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/220.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="389.33862"
        x="258.60434"
        id="image4286-0"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/197.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/221.png"
        height="70.866142"
        width="70.866142" />
     <text
@@ -149,19 +149,19 @@
          x="186.73328"
          y="829.89734"
          id="tspan3823-5"
-         style="font-size:22px">Sist.Coord</tspan></text>
+         style="font-size:22px;font-weight:bold;-inkscape-font-specification:'Times New Roman, Bold';fill:#d40000">Pause!</tspan></text>
     <image
        y="802.92914"
        x="49.000732"
        id="image4286-5"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/198.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/222.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="802.92914"
        x="256.13312"
        id="image4286-0-1"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/199.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/223.png"
        height="70.866142"
        width="70.866142" />
     <rect
@@ -199,7 +199,7 @@
          id="tspan3821-1"
          x="524.70447"
          y="416.86401"
-         style="font-size:22px">Réperer A</tspan><tspan
+         style="font-size:22px">Constr.55</tspan><tspan
          sodipodi:role="line"
          x="524.70447"
          y="444.36401"
@@ -229,14 +229,14 @@
        y="389.89581"
        x="386.97198"
        id="image4286-00"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/200.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/224.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="389.89581"
        x="594.10437"
        id="image4286-0-4"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/201.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/225.png"
        height="70.866142"
        width="70.866142" />
     <text
@@ -250,19 +250,19 @@
          x="522.23328"
          y="830.45447"
          id="tspan3823-5-1"
-         style="font-size:22px">Réperer A</tspan></text>
+         style="font-size:22px">Constr.55</tspan></text>
     <image
        y="803.48633"
        x="384.50073"
        id="image4286-5-6"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/202.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/226.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="803.48633"
        x="591.63318"
        id="image4286-0-1-0"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/203.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/227.png"
        height="70.866142"
        width="70.866142" />
     <rect
@@ -300,7 +300,7 @@
          id="tspan3821-5"
          x="860.70453"
          y="416.86401"
-         style="font-size:22px">Réperer B</tspan><tspan
+         style="font-size:22px">Roter120</tspan><tspan
          sodipodi:role="line"
          x="860.70453"
          y="444.36401"
@@ -330,14 +330,14 @@
        y="389.89581"
        x="722.97198"
        id="image4286-03"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/204.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/228.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="389.89581"
        x="930.10437"
        id="image4286-0-7"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/205.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/229.png"
        height="70.866142"
        width="70.866142" />
     <text
@@ -351,19 +351,19 @@
          x="858.23328"
          y="830.45447"
          id="tspan3823-5-7"
-         style="font-size:22px">Réperer B</tspan></text>
+         style="font-size:22px">Roter120</tspan></text>
     <image
        y="803.48633"
        x="720.50073"
        id="image4286-5-8"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/206.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/230.png"
        height="70.866142"
        width="70.866142" />
     <image
        y="803.48633"
        x="927.63312"
        id="image4286-0-1-2"
-       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/207.png"
+       xlink:href="file:///home/lprisan/workspace/chilitags-chrome/svgs/231.png"
        height="70.866142"
        width="70.866142" />
   </g>
